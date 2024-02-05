@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServletService {
 
-    private static Map<Integer,String> phraseStorage;
+    public static Map<Integer,String> phraseStorage;
 
     public ServletService() {
         phraseStorage = new ConcurrentHashMap<>(Map.of(
