@@ -1,3 +1,4 @@
+import Service.ServletService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,14 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
     public class MyServletTest extends Mockito {
 
-        private Main servlet;
+        private SimpleServlet servlet;
+        private ServletService service;
         private HttpServletRequest request;
         private HttpServletResponse response;
         private StringWriter responseWriter;
 
         @BeforeEach
         public void setUp() throws Exception{
-            servlet = new Main();
+            servlet = new SimpleServlet();
+            service = new ServletService();
             request = mock(HttpServletRequest.class);
             response = mock(HttpServletResponse.class);
             responseWriter = new StringWriter();
@@ -35,8 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
             servlet.doGet(request, response);
             Mockito.verify(response).setContentType(Mockito.eq("text/plain;charset=UTF-8"));
-            assertTrue(Main.phraseStorage.values().contains("У тебя все получится!"));
-            assertEquals(3, Main.phraseStorage.size());
+            assertTrue(service.getPhrases().contains("У тебя все получится!"));
+            assertEquals(3, service.getPhrases().size());
 
         }
 
@@ -44,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         public void testPostServlet() throws ServletException, IOException {
             Mockito.when(request.getParameter("phrase")).thenReturn("testDoPost");
             servlet.doPost(request, response);
-            assertTrue(Main.phraseStorage.values().contains("testDoPost"));
+            assertTrue(service.getPhrases().contains("testDoPost"));
         }
 
     }
