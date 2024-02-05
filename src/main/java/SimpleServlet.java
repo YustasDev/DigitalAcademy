@@ -23,6 +23,10 @@ import java.util.concurrent.ConcurrentHashMap;
             this.service = new ServletService();
         }
 
+        public SimpleServlet(ServletService service) {
+            this.service = service;
+        }
+
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

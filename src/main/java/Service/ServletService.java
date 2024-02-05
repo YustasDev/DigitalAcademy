@@ -11,14 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServletService {
 
-    public static Map<Integer,String> phraseStorage;
-
-    public ServletService() {
-        phraseStorage = new ConcurrentHashMap<>(Map.of(
-                1, "У тебя все получится!",
-                2, "Просто сделай это!",
-                3, "Следуй за своей мечтой и не сомневайся!"));
-    }
+    private static Map<Integer,String> phraseStorage = new ConcurrentHashMap<>(Map.of(
+            1, "У тебя все получится!",
+            2, "Просто сделай это!",
+            3, "Следуй за своей мечтой и не сомневайся!"));
 
     public List<String> getPhrases(){
         List<String> phrases = new ArrayList<>(phraseStorage.values());

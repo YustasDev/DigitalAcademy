@@ -1,4 +1,5 @@
 import Service.ServletService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
         @BeforeEach
         public void setUp() throws Exception{
-            servlet = new SimpleServlet();
             service = new ServletService();
+            servlet = new SimpleServlet(service);
             request = mock(HttpServletRequest.class);
             response = mock(HttpServletResponse.class);
             responseWriter = new StringWriter();
@@ -35,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
         @Test
         public void testDoServlet() throws ServletException, IOException {
-
             servlet.doGet(request, response);
             Mockito.verify(response).setContentType(Mockito.eq("text/plain;charset=UTF-8"));
             assertTrue(service.getPhrases().contains("У тебя все получится!"));
